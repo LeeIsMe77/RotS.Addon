@@ -45,6 +45,12 @@
     <Compile Include="ArkenParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RotS.LineParser.Core\RotS.LineParser.Core.csproj">
+      <Project>{0990c405-701e-42d6-b8b4-d76c30f0b0ae}</Project>
+      <Name>RotS.LineParser.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)$(OutDir)RotS.LineParser.Arken.dll" "C:\Users\lGurley\Source\Repos\RotS.LineParser\JMC"  /Y &amp;&amp; C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe "C:\Users\lGurley\Source\Repos\RotS.LineParser\JMC\RotS.LineParser.Arken.dll"</PostBuildEvent>

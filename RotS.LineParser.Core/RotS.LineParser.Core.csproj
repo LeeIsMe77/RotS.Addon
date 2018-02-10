@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Common\DatabaseType.cs" />
     <Compile Include="Common\Direction.cs" />
-    <Compile Include="Common\LineParser.cs" />
+    <Compile Include="LineParser.cs" />
     <Compile Include="Extensions\DbConnectionExtension.cs" />
     <Compile Include="Extensions\DbConnectionStringBuilderExtension.cs" />
     <Compile Include="Extensions\JmcObjectExtension.cs" />

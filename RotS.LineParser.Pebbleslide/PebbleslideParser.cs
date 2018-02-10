@@ -7,6 +7,7 @@
 	using System.Runtime.InteropServices;
 	using System.Text.RegularExpressions;
 	using System.Xml.Linq;
+	using RotS.LineParser.Core;
 	using RotS.LineParser.Core.Common;
 	using RotS.LineParser.Core.Extensions;
 	using RotS.LineParser.Pebbleslide.Common;
@@ -28,7 +29,7 @@
 
 		private string _target = null;
 		private bool _moveTimerEnabled = false;
-		private bool _waitTimerEnabled = false;
+		//private bool _waitTimerEnabled = false;
 
 		#region BuffingSpells
 
@@ -36,7 +37,7 @@
 		/// Gets or sets the buffing spells.
 		/// </summary>
 		/// <value>The buffing spells.</value>
-		public List<string> BuffingSpells { get; set; } = new List<string> {
+		private List<string> BuffingSpells { get; set; } = new List<string> {
 			@"infravision",
 			@"slow digestion",
 			@"revive",
@@ -50,6 +51,7 @@
 		/// Gets or sets the name of the character.
 		/// </summary>
 		/// <value>The name of the character.</value>
+		[ComVisible(true)]
 		public string CharacterName { get; set; }
 
 		#endregion
@@ -60,6 +62,7 @@
 		/// Gets or sets the move time.
 		/// </summary>
 		/// <value>The move time.</value>
+		[ComVisible(true)]
 		public int MoveTime { get; set; } = 50; /* 5 seconds */
 
 		#endregion
@@ -70,6 +73,7 @@
 		/// Gets or sets the wait time.
 		/// </summary>
 		/// <value>The wait time.</value>
+		[ComVisible(true)]
 		public int WaitTime { get; set; } = 300; /* 30 Seconds */
 
 		#endregion
@@ -96,13 +100,13 @@
 		/// <param name="configuration">The configuration.</param>
 		protected override void OnConfigurationSettingsLoaded(XElement configuration) {
 			base.OnConfigurationSettingsLoaded(configuration);
-			this.BuffingSpells = configuration
-				.SafeElementValue(
-					nameof(PebbleslideParser.BuffingSpells),
-					string.Join(@";", this.BuffingSpells)
-					)
-				.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-				.ToList();
+			//this.BuffingSpells = configuration
+			//	.SafeElementValue(
+			//		nameof(PebbleslideParser.BuffingSpells),
+			//		string.Join(@";", this.BuffingSpells)
+			//		)
+			//	.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+			//	.ToList();
 			this.CharacterName = configuration.SafeElementValue(nameof(PebbleslideParser.CharacterName), string.Empty);
 			this.MoveTime = configuration.SafeElementValue(nameof(PebbleslideParser.MoveTime), this.MoveTime);
 			this.WaitTime = configuration.SafeElementValue(nameof(PebbleslideParser.WaitTime), this.WaitTime);
@@ -115,7 +119,7 @@
 		protected override void OnConfigurationSettingsSaved(XElement configuration) {
 			base.OnConfigurationSettingsSaved(configuration);
 			configuration.Add(
-				new XElement(nameof(PebbleslideParser.BuffingSpells), string.Join(@";", this.BuffingSpells)),
+				//new XElement(nameof(PebbleslideParser.BuffingSpells), string.Join(@";", this.BuffingSpells)),
 				new XElement(nameof(PebbleslideParser.CharacterName), this.CharacterName),
 				new XElement(nameof(PebbleslideParser.MoveTime), this.MoveTime),
 				new XElement(nameof(PebbleslideParser.WaitTime), this.WaitTime)
@@ -195,7 +199,7 @@
 				case @"This end of the mines has come to be due to the massive barricade of":
 					_moveTimerEnabled = false;
 					this.JmcObject.KillTimer((int)PebbleslideTimer.MoveTimer);
-					_waitTimerEnabled = true;
+					//_waitTimerEnabled = true;
 					this.JmcObject.SetTimer((int)PebbleslideTimer.WaitTimer, this.WaitTime);
 					this.JmcObject.Navigate(Direction.North, Direction.East, Direction.East, Direction.East, Direction.South, Direction.South, Direction.West, Direction.West);
 					this.JmcObject.Send(@"open brokenhatch");
@@ -323,7 +327,7 @@
 				// ...Kill all timers.
 				_moveTimerEnabled = false;
 				this.JmcObject.KillTimer((int)PebbleslideTimer.MoveTimer);
-				_waitTimerEnabled = false;
+				//_waitTimerEnabled = false;
 				this.JmcObject.KillTimer((int)PebbleslideTimer.WaitTimer);
 			}
 			catch { }
@@ -335,7 +339,7 @@
 		protected override void OnEnable() {
 			try {
 				// Set the MoveTimer to the specified duration.
-				_waitTimerEnabled = false;
+				//_waitTimerEnabled = false;
 				_moveTimerEnabled = true;
 				this.JmcObject.KillTimer((int)PebbleslideTimer.WaitTimer);
 				this.JmcObject.SetTimer((int)PebbleslideTimer.MoveTimer, this.MoveTime);

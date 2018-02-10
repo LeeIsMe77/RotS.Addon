@@ -1,4 +1,4 @@
-﻿namespace RotS.LineParser.Core.Common {
+﻿namespace RotS.LineParser.Core {
 
 	#region Directives
 	using System;
@@ -12,6 +12,7 @@
 	using System.Runtime.InteropServices;
 	using System.Text.RegularExpressions;
 	using System.Xml.Linq;
+	using RotS.LineParser.Core.Common;
 	using RotS.LineParser.Core.Extensions;
 	using TTCOREEXLib;
 	#endregion
