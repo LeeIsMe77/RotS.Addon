@@ -1,7 +1,4 @@
-// NOTE: Define your own configuration directory.  use double-backslashes between directories.
-var CONFIGURATION_LOCATION = "C:\\Temp\\Pebbleslide.xml";
-// Create the parser and initialize.
+var CONFIGURATION_LOCATION = "C:\\Users\\lGurley\\Source\\Repos\\RotS.LineParser\\JMC\\PebbleslideSettings.xml";
 var pebbleslideParser = new ActiveXObject("RotS.LineParser.PebbleslideParser");
 pebbleslideParser.Initialize(jmc, CONFIGURATION_LOCATION);
-// Optional: Enable the triggers prompty.
-// pebbleslideParser.Enable();
+pebbleslideParser.Enable();

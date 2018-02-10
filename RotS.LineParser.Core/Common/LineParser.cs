@@ -271,7 +271,7 @@
 		/// </summary>
 		private void Connected() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnConnected();
 				}
 			}
@@ -283,7 +283,7 @@
 		/// </summary>
 		private void ConnectionLost() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.ConnectionLost();
 				}
 			}
@@ -298,7 +298,7 @@
 		/// </summary>
 		private void Disconnected() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnDisconnected();
 				}
 			}
@@ -314,10 +314,10 @@
 		/// <param name="incomingLine">The incoming line.</param>
 		private void Incoming(string incomingLine) {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					var cleanString = this.JmcObject.ToText(incomingLine);
 					cleanString = Regex.Replace(incomingLine, @"^R? ?(?:(?:Mind|Mount|HP|MV|S):[a-zA-Z ]+ ?)*(?:, [a-zA-Z,\-' ]+:[a-zA-Z ]+)*?>", string.Empty);
-					this.OnIncoming(this.JmcObject.ToText(cleanString));
+					this.OnIncoming(cleanString);
 				}
 			}
 			catch { }
@@ -329,7 +329,7 @@
 		/// <param name="input">The input.</param>
 		private void Input(string input) {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnInput(input);
 				}
 			}
@@ -341,7 +341,7 @@
 		/// </summary>
 		private void Load() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnLoad();
 				}
 			}
@@ -353,7 +353,7 @@
 		/// </summary>
 		private void MultiIncoming() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnMultiIncoming();
 				}
 			}
@@ -366,7 +366,7 @@
 		/// <param name="timerID">The timer identifier.</param>
 		private void PreTimer(int timerID) {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnPreTimer(timerID);
 				}
 			}
@@ -378,7 +378,7 @@
 		/// </summary>
 		private void Prompt() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnPrompt();
 				}
 			}
@@ -390,7 +390,7 @@
 		/// </summary>
 		private void Telnet() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnTelnet();
 				}
 			}
@@ -403,7 +403,7 @@
 		/// <param name="timerID">The timer identifier.</param>
 		private void Timer(int timerID) {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnTimer(timerID);
 				}
 			}
@@ -415,7 +415,7 @@
 		/// </summary>		
 		private void Unload() {
 			try {
-				if (this.Enabled && this.JmcObject.IsConnected == 1) {
+				if (this.Enabled && this.JmcObject.IsConnected != 0) {
 					this.OnUnload();
 				}
 			}

@@ -138,59 +138,60 @@
 				return;
 			}
 
+			// We have no reason to keep empty lines.
 			if (string.IsNullOrWhiteSpace(incomingLine)) {
 				return;
 			}
-
+			
 			switch (incomingLine.Trim()) {
 
 				#region Navigation
 				case @"Ghostly chills and wails can be heard constantly here, filling the tunnels":
 					this.JmcObject.Navigate(Direction.West);
-					return;
+					break;
 				case @"Long ago, this place used to lie at the entrance to a very prosperous metal":
 					this.JmcObject.Send(@"open cavein");
 					this.JmcObject.Navigate(Direction.West);
-					return;
+					break;
 				case @"Many sticky cobwebs crisscross the walls here, forming a large wall of":
 					this.JmcObject.Navigate(Direction.West);
-					return;
+					break;
 				case @"Piles upon piles of stones lie to the east, filling in the large archway":
 					this.JmcObject.Navigate(Direction.West);
-					return;
+					break;
 				case @"Strange occurrences constantly happen in this place.  The temperature of":
 					this.JmcObject.Navigate(Direction.East);
-					return;
+					break;
 				case @"The continuation of these mines to the west is blocked off by a large":
 					this.JmcObject.Navigate(Direction.East);
-					return;
+					break;
 				case @"The mines have sloped downward here from the north, making breathing just a":
 					this.JmcObject.Navigate(Direction.South);
-					return;
+					break;
 				case @"The mines take a bend to the north here.  Large iron carts line the walls.":
 					this.JmcObject.Navigate(Direction.North);
-					return;
+					break;
 				case @"The tunnel bends extremely sharply to the west and south here.  The walls":
 					this.JmcObject.Navigate(Direction.West);
-					return;
+					break;
 				case @"The tunnel comes to a halt here.  There are several large iron carts":
 					this.JmcObject.Navigate(Direction.South, Direction.South);
-					return;
+					break;
 				case @"The tunnel forks into two different directions here, north and south.":
 					this.JmcObject.Navigate(Direction.North);
-					return;
+					break;
 				case @"The tunnel of the minds comes to a fork here, to the north, east, and":
 					this.JmcObject.Navigate(Direction.North);
-					return;
+					break;
 				case @"The tunnel of the mines takes a steep downward slope to the south here.":
 					this.JmcObject.Navigate(Direction.South);
-					return;
+					break;
 				case @"The tunnel of this mine bends to the north and west here.  Many large iron":
 					this.JmcObject.Navigate(Direction.West);
-					return;
+					break;
 				case @"The tunnels of this mine are constantly filled with echoes and cries for":
 					this.JmcObject.Navigate(Direction.North);
-					return;
+					break;
 				case @"This end of the mines has come to be due to the massive barricade of":
 					_moveTimerEnabled = false;
 					this.JmcObject.KillTimer((int)PebbleslideTimer.MoveTimer);
@@ -200,20 +201,20 @@
 					this.JmcObject.Send(@"open brokenhatch");
 					this.JmcObject.Navigate(Direction.Up, Direction.North, Direction.North, Direction.East, Direction.North, Direction.North, Direction.East, Direction.East);
 					// TODO: buffMe, reviveMe, whoAmI
-					return;
+					break;
 				case @"This mine seems to be utterly old.  The wooden support beams that line the":
 					this.JmcObject.Navigate(Direction.West);
-					return;
+					break;
 				case @"This part of the mines comes to a complete halt, due to the large mass of":
 					this.JmcObject.Navigate(Direction.South, Direction.South);
-					return;
+					break;
 				case @"This part of the mines comes to a dead end.  Large piles of earth lie":
 					this.JmcObject.Send(@"open brokenhatch");
 					this.JmcObject.Navigate(Direction.Down);
-					return;
+					break;
 				case @"This place is filled with the sounds of screaming and crying.  Large heaps":
 					this.JmcObject.Navigate(Direction.South);
-					return;
+					break;
 				#endregion
 
 				#region Targeting
@@ -221,23 +222,23 @@
 				case @"A flickering ball of pale flame dances through the air. (shadow)":
 					_target = @"flame";
 					this.Log($@"Target is now {_target}.", @"green");
-					return;
+					break;
 				case @"A grey spirit gazes upon you. (shadow)":
 					_target = @"spirit";
 					this.Log($@"Target is now {_target}.", @"green");
-					return;
+					break;
 				case @"A hazy figure glides above the ground. (shadow)":
 					_target = @"wraith";
 					this.Log($@"Target is now {_target}.", @"green");
-					return;
+					break;
 				case @"A phantom, a spirit of discontent, moans as it floats here. (shadow)":
 					_target = @"phantom";
 					this.Log($@"Target is now {_target}.", @"green");
-					return;
+					break;
 				case @"The ghost of a miner is hovering here over a pile of rocks. (shadow)":
 					_target = @"ghost";
 					this.Log($@"Target is now {_target}.", @"green");
-					return;
+					break;
 
 				#endregion
 
@@ -246,34 +247,38 @@
 				case @"You hit yourself...OUCH!.":
 					this.JmcObject.Send(@"set mental on");
 					this.JmcObject.Send(@"examine");
-					return;
+					break;
 				case @"You lost your concentration!":
 					this.JmcObject.Send(@"!"); // Repeat the previous command.
-					return;
+					break;
 				case @"You contemplate yourself for a little while.":
 				case @"Whom do you want to press?":
 					_target = this.CharacterName;
 					this.JmcObject.Send(@"examine");
-					return;
-
+					break;
 				#endregion
-			}
 
-			if (Regex.IsMatch(incomingLine, @"^You force your Will against .*'s .*!$")) {
-				if (_moveTimerEnabled) {
-					_moveTimerEnabled = false;
-					this.JmcObject.KillTimer((int)PebbleslideTimer.MoveTimer);
-				}
-			}
+				#region Regular Expressions
+				default:
+					if (Regex.IsMatch(incomingLine, @"^You force your Will against .*'s .*!$")) {
+						if (_moveTimerEnabled) {
+							_moveTimerEnabled = false;
+							this.JmcObject.KillTimer((int)PebbleslideTimer.MoveTimer);
+						}
+						break;
+					}
+					if (Regex.IsMatch(incomingLine, @"^Your spirit increases by \d+\.$")) {
+						_target = this.CharacterName;
+						this.JmcObject.Send(@"examine");
+						_moveTimerEnabled = true;
+						this.JmcObject.SetTimer((int)PebbleslideTimer.MoveTimer, this.MoveTime);
+						break;
+					}
+					return;
+				#endregion
 
-			if (Regex.IsMatch(incomingLine, @"^Your spirit increases by \d+\.$")) {
-				_target = this.CharacterName;
-				this.JmcObject.Send(@"examine");
-				_moveTimerEnabled = true;
-				this.JmcObject.SetTimer((int)PebbleslideTimer.MoveTimer, this.MoveTime);
-				return;
 			}
-
+			this.Log(incomingLine, @"normal");
 		}
 
 		/// <summary>
