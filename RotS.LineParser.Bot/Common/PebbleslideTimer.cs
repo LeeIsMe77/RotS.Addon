@@ -1,11 +1,11 @@
-﻿namespace RotS.LineParser.Pebbleslide.Common {
+﻿namespace RotS.LineParser.Bot.Common {
 
 	#region Directives
 
 	#endregion
 
 	/// <summary>
-	/// Enumeration representing different timers utilized by the <seealso cref="PebbleslideParser"/>.
+	/// Enumeration representing different timers utilized by the <seealso cref="PebbleslideJmcManager"/>.
 	/// </summary>
 	public enum PebbleslideTimer {
 

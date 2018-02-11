@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B6BBA71B-8611-4E07-A908-C933D30B0565}</ProjectGuid>
+    <ProjectGuid>{C86DCFFD-2E90-4806-968C-FC3C5479673B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RotS.LineParser.Arken</RootNamespace>
-    <AssemblyName>RotS.LineParser.Arken</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>RotS.LineParser.Toggle</RootNamespace>
+    <AssemblyName>RotS.LineParser.Toggle</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,8 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArkenParser.cs" />
+    <Compile Include="Common\DrinkToggle.cs" />
+    <Compile Include="Common\FoodToggle.cs" />
+    <Compile Include="Common\IToggleCollection.cs" />
+    <Compile Include="Common\ToggleCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\Toggle.cs" />
+    <Compile Include="ToggleJmcManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RotS.LineParser.Core\RotS.LineParser.Core.csproj">
@@ -51,8 +54,19 @@
       <Name>RotS.LineParser.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="TTCOREEXLib">
+      <Guid>{B41BA781-8ED5-11D4-92AE-0001027ED904}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)$(OutDir)RotS.LineParser.Arken.dll" "C:\Users\lGurley\Source\Repos\RotS.LineParser\JMC"  /Y &amp;&amp; C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe "C:\Users\lGurley\Source\Repos\RotS.LineParser\JMC\RotS.LineParser.Arken.dll"</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)$(OutDir)RotS.LineParser.Toggle.dll" "C:\Users\lGurley\Source\Repos\RotS.LineParser\JMC"  /Y &amp;&amp; C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe "C:\Users\lGurley\Source\Repos\RotS.LineParser\JMC\RotS.LineParser.Toggle.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

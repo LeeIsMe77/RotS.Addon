@@ -18,13 +18,13 @@
 	#endregion
 
 	/// <summary>
-	/// The abstract class providing the framework for a <seealso cref="LineParser" /> to handle events presented by a <seealso cref="JmcObj" />.
+	/// The abstract class providing the framework for a <seealso cref="JmcManager" /> to handle events presented by a <seealso cref="JmcObj" />.
 	/// </summary>
 	[ClassInterface(ClassInterfaceType.AutoDual)]
 	[ComVisible(true)]
 	[Guid("A82D71F8-B2A5-49D9-9A7C-1A9EB46AD86E")]
-	[ProgId("RotS.LineParser.Core")]
-	public abstract class LineParser {
+	[ProgId("RotS.LineParser.JmcManager")]
+	public abstract class JmcManager {
 
 		private string _configurationFile;
 
@@ -62,29 +62,11 @@
 
 		#region Enabled
 
-		private bool _enabled;
-
 		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="LineParser"/> is enabled.
+		/// Gets or sets a value indicating whether this <see cref="JmcManager"/> is enabled.
 		/// </summary>
 		/// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
-		protected bool Enabled {
-			// TODO: Clean this shit up.
-			get { return _enabled; }
-			set {
-				if (_enabled == value) {
-					return;
-				}
-				_enabled = value;
-				if (value) {
-					this.OnEnable();
-				}
-				if (!value) {
-					this.OnDisable();
-				}
-			}
-		}
-
+		protected bool Enabled { get; private set; }
 		#endregion
 
 		#region JmcObject
@@ -93,7 +75,7 @@
 		/// Gets the JMC object.
 		/// </summary>
 		/// <value>The JMC object.</value>
-		protected JmcObj JmcObject { get; private set; }
+		public JmcObj JmcObject { get; private set; }
 
 		#endregion
 
@@ -122,9 +104,9 @@
 		#region Constructors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LineParser"/> class.
+		/// Initializes a new instance of the <see cref="JmcManager"/> class.
 		/// </summary>
-		protected LineParser() { }
+		protected JmcManager() { }
 
 		#endregion
 
@@ -236,9 +218,15 @@
 				else {
 					configuration = new XElement(this.GetType().Name);
 				}
-				this.Enabled = configuration.SafeElementValue(nameof(LineParser.Enabled), this.Enabled);
-				this.VerboseLoggingEnabled = configuration.SafeElementValue(nameof(LineParser.VerboseLoggingEnabled), this.VerboseLoggingEnabled);
-				this.VerboseLoggingOutputWindow = configuration.SafeElementValue(nameof(LineParser.VerboseLoggingOutputWindow), this.VerboseLoggingOutputWindow);
+				var enabled = configuration.SafeAttributeValue(nameof(JmcManager.Enabled), this.Enabled);
+				if (enabled) {
+					this.Enable();
+				}
+				else {
+					this.Disable();
+				}
+				this.VerboseLoggingEnabled = configuration.SafeAttributeValue(nameof(JmcManager.VerboseLoggingEnabled), this.VerboseLoggingEnabled);
+				this.VerboseLoggingOutputWindow = configuration.SafeAttributeValue(nameof(JmcManager.VerboseLoggingOutputWindow), this.VerboseLoggingOutputWindow);
 				this.OnConfigurationSettingsLoaded(configuration);
 			}
 			catch { }
@@ -251,9 +239,9 @@
 			try {
 				var configuration = new XElement(this.GetType().Name);
 				configuration.Add(
-					new XElement(nameof(LineParser.Enabled), this.Enabled),
-					new XElement(nameof(LineParser.VerboseLoggingEnabled), this.VerboseLoggingEnabled),
-					new XElement(nameof(LineParser.VerboseLoggingOutputWindow), this.VerboseLoggingOutputWindow)
+					new XAttribute(nameof(JmcManager.Enabled), this.Enabled),
+					new XAttribute(nameof(JmcManager.VerboseLoggingEnabled), this.VerboseLoggingEnabled),
+					new XAttribute(nameof(JmcManager.VerboseLoggingOutputWindow), this.VerboseLoggingOutputWindow)
 					);
 				this.OnConfigurationSettingsSaved(configuration);
 				configuration.Save(_configurationFile, SaveOptions.None);
@@ -431,7 +419,7 @@
 		#region Public COM accessible methods
 
 		/// <summary>
-		/// Enables this instance of the <seealso cref="LineParser"/>.
+		/// Enables this instance of the <seealso cref="JmcManager"/>.
 		/// </summary>
 		[ComVisible(true)]
 		public void Enable() {
@@ -439,6 +427,7 @@
 				throw new LineParserException(null, $@"The JMC object is not defined.  Ensure the initialize method has been called.");
 			}
 			try {
+				this.Log($@"Enabling {this.GetType().FullName}", @"green");
 				this.Enabled = true;
 				this.OnEnable();
 			}
@@ -446,7 +435,7 @@
 		}
 
 		/// <summary>
-		/// Disables this instance of the <seealso cref="LineParser"/>.
+		/// Disables this instance of the <seealso cref="JmcManager"/>.
 		/// </summary>
 		[ComVisible(true)]
 		public void Disable() {
@@ -454,8 +443,9 @@
 				throw new LineParserException(null, $@"The JMC object is not defined.  Ensure the initialize method has been called.");
 			}
 			try {
+				this.Log($@"Disabling {this.GetType().FullName}", @"red");
 				this.Enabled = false;
-				this.OnEnable();
+				this.OnDisable();
 			}
 			catch { }
 		}
@@ -500,7 +490,7 @@
 			}
 			this.ConnectionString = null;
 			this.ConnectionStringBuilderType = null;
-			
+
 			var connectionStringBuilder = databaseType == DatabaseType.SQLServer
 				? (DbConnectionStringBuilder)new System.Data.SqlClient.SqlConnectionStringBuilder(connectionString)
 				: databaseType == DatabaseType.OleDB
@@ -640,7 +630,7 @@
 		protected virtual void OnEnable() { }
 
 		/// <summary>
-		/// Called when the <seealso cref="LineParser" /> has completed preliminary initialization.
+		/// Called when the <seealso cref="JmcManager" /> has completed preliminary initialization.
 		/// </summary>
 		protected virtual void OnInitialize() { }
 

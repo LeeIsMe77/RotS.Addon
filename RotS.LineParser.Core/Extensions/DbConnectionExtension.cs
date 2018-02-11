@@ -6,6 +6,9 @@
 
 	#endregion
 
+	/// <summary>
+	/// A set of commonly used extensions methods for the <seealso cref="DbConnection"/> type.
+	/// </summary>
 	public static class DbConnectionExtension {
 
 		/// <summary>

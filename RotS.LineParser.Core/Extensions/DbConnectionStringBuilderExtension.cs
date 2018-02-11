@@ -5,6 +5,9 @@
 
 	#endregion
 
+	/// <summary>
+	/// A set of commonly used extensions methods for the <seealso cref="DbConnectionStringBuilder"/> type.
+	/// </summary>
 	public static class DbConnectionStringBuilderExtension {
 
 		/// <summary>

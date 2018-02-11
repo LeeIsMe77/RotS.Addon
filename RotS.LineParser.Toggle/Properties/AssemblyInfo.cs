@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RotS.LineParser.Arken")]
+[assembly: AssemblyTitle("RotS.LineParser.Toggle")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RotS.LineParser.Arken")]
+[assembly: AssemblyProduct("RotS.LineParser.Toggle")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b6bba71b-8611-4e07-a908-c933d30b0565")]
+[assembly: Guid("c86dcffd-2e90-4806-968c-fc3c5479673b")]
 
 // Version information for an assembly consists of the following four values:
 //

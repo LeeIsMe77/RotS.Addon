@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ToggleJmcManager Enabled="true" VerboseLoggingEnabled="true" VerboseLoggingOutputWindow="9">
+  <DrinkToggle Enabled="false" DrinkSource="waterskin" />
+  <FoodToggle Enabled="false" FoodSource="waybread" />
+</ToggleJmcManager>

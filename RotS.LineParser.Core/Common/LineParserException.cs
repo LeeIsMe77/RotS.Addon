@@ -2,6 +2,7 @@
 
 	#region Directives
 	using System;
+	using RotS.LineParser.Core;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
@@ -18,7 +19,7 @@
 		/// Logs the exception.
 		/// </summary>
 		/// <param name="caught">The caught.</param>
-		public static void LogException(Exception caught) {
+		public static void LogException(JmcManager lineParser, Exception caught) {
 			// TODO: Implement LogException.
 		}
 

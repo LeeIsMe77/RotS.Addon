@@ -5,6 +5,9 @@
 	using TTCOREEXLib;
 	#endregion
 
+	/// <summary>
+	/// A set of commonly used extensions methods for the <seealso cref="JmcObj"/> type.
+	/// </summary>
 	public static class JmcObjectExtension {
 
 		/// <summary>

@@ -1,4 +1,4 @@
-﻿namespace RotS.LineParser.Arken {
+﻿namespace RotS.LineParser.Bot {
 
 	#region Directives
 	using System;
@@ -9,16 +9,16 @@
 
 	[ClassInterface(ClassInterfaceType.AutoDual)]
 	[ComVisible(true)]
-	[Guid("53C47A57-DB70-44FC-983D-1C9E0F24DB7A")]
-	[ProgId("RotS.LineParser.PebbleslideParser")]
-	public class ArkenParser
-		: LineParser {
+	[Guid("0FF1B455-1080-42F1-A1C0-25E9AE034CD2")]
+	[ProgId("RotS.LineParser.ArkenJmcManager")]
+	public class ArkenJmcManager
+		: JmcManager {
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ArkenParser"/> class.
+		/// Initializes a new instance of the <see cref="ArkenJmcManager"/> class.
 		/// </summary>
-		public ArkenParser() {
-			throw new NotImplementedException(@"The arken parser is not currenty implemented.");
+		public ArkenJmcManager() {
+			throw new NotImplementedException(@"The arken parser is not currently implemented.");
 		}
 
 		/// <summary>

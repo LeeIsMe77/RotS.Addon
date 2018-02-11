@@ -1,8 +1,7 @@
-﻿namespace RotS.LineParser.Pebbleslide {
+﻿namespace RotS.LineParser.Bot {
 
 	#region Directives
 	using System;
-	using System.Collections.Generic;
 	using System.Linq;
 	using System.Runtime.InteropServices;
 	using System.Text.RegularExpressions;
@@ -10,20 +9,19 @@
 	using RotS.LineParser.Core;
 	using RotS.LineParser.Core.Common;
 	using RotS.LineParser.Core.Extensions;
-	using RotS.LineParser.Pebbleslide.Common;
-	using TTCOREEXLib;
+	using RotS.LineParser.Bot.Common;
 	#endregion
 
 	/// <summary>
-	/// A Pebbleslide <seealso cref="LineParser"/> designed for trigger spiriting in the spirit mines.
+	/// A Pebbleslide <seealso cref="JmcManager"/> designed for trigger spiriting in the spirit mines.
 	/// </summary>
 	/// <seealso cref="RotS.LineParser.Core.Common.LineParser" />
 	[ClassInterface(ClassInterfaceType.AutoDual)]
 	[ComVisible(true)]
 	[Guid("53C47A57-DB70-44FC-983D-1C9E0F24DB7A")]
-	[ProgId("RotS.LineParser.PebbleslideParser")]
-	public class PebbleslideParser
-		: LineParser {
+	[ProgId("RotS.LineParser.PebbleslideJmcManager")]
+	public class PebbleslideJmcManager
+		: JmcManager {
 
 		#region Properties
 
@@ -31,16 +29,16 @@
 		private bool _moveTimerEnabled = false;
 		//private bool _waitTimerEnabled = false;
 
-		#region BuffingSpells
+		#region EnhancementSkills
 
 		/// <summary>
-		/// Gets or sets the buffing spells.
+		/// Gets or sets the enhancement skills.
 		/// </summary>
-		/// <value>The buffing spells.</value>
-		private List<string> BuffingSpells { get; set; } = new List<string> {
-			@"infravision",
-			@"slow digestion",
-			@"revive",
+		/// <value>The enhancement skills.</value>
+		public EnhancementSkillCollection EnhancementSkills { get; set; } = new EnhancementSkillCollection {
+			{ @"infravision", false },
+			{ @"slow digestion", true },
+			{ @"revive", true }
 		};
 
 		#endregion
@@ -83,11 +81,11 @@
 		#region Constructors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="PebbleslideParser" /> class.
+		/// Initializes a new instance of the <see cref="PebbleslideJmcManager" /> class.
 		/// </summary>
 		/// <param name="jmcObject">The JMC object.</param>
 		/// <param name="configurationFile">The configuration file.</param>
-		public PebbleslideParser()
+		public PebbleslideJmcManager()
 			: base() { }
 
 		#endregion
@@ -100,16 +98,24 @@
 		/// <param name="configuration">The configuration.</param>
 		protected override void OnConfigurationSettingsLoaded(XElement configuration) {
 			base.OnConfigurationSettingsLoaded(configuration);
-			//this.BuffingSpells = configuration
-			//	.SafeElementValue(
-			//		nameof(PebbleslideParser.BuffingSpells),
-			//		string.Join(@";", this.BuffingSpells)
-			//		)
-			//	.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-			//	.ToList();
-			this.CharacterName = configuration.SafeElementValue(nameof(PebbleslideParser.CharacterName), string.Empty);
-			this.MoveTime = configuration.SafeElementValue(nameof(PebbleslideParser.MoveTime), this.MoveTime);
-			this.WaitTime = configuration.SafeElementValue(nameof(PebbleslideParser.WaitTime), this.WaitTime);
+			var enhancementSkills = configuration.Elements(nameof(EnhancementSkillCollection)).Elements(nameof(EnhancementSkill)).ToList();
+			if (enhancementSkills.Count > 0) {
+				this.EnhancementSkills.Clear();
+				enhancementSkills.ForEach(enhancementSkill => {
+					var enhancementSkillName = enhancementSkill.SafeAttributeValue<string>(nameof(EnhancementSkill.EnhancementSkillName), string.Empty);
+					if (!string.IsNullOrWhiteSpace(enhancementSkillName)) {
+						var skill = this.EnhancementSkills.Add(
+							enhancementSkillName,
+							enhancementSkill.SafeAttributeValue<bool>(nameof(EnhancementSkill.TargetSelf), false)
+						);
+						this.Log($@"Skill registered: {skill.EnhancementSkillName}, TargetSelf: {skill.TargetSelf}", @"cyan");
+					}
+				});
+
+			}
+			this.CharacterName = configuration.SafeElementValue(nameof(PebbleslideJmcManager.CharacterName), string.Empty);
+			this.MoveTime = configuration.SafeElementValue(nameof(PebbleslideJmcManager.MoveTime), this.MoveTime);
+			this.WaitTime = configuration.SafeElementValue(nameof(PebbleslideJmcManager.WaitTime), this.WaitTime);
 		}
 
 		/// <summary>
@@ -119,10 +125,20 @@
 		protected override void OnConfigurationSettingsSaved(XElement configuration) {
 			base.OnConfigurationSettingsSaved(configuration);
 			configuration.Add(
-				//new XElement(nameof(PebbleslideParser.BuffingSpells), string.Join(@";", this.BuffingSpells)),
-				new XElement(nameof(PebbleslideParser.CharacterName), this.CharacterName),
-				new XElement(nameof(PebbleslideParser.MoveTime), this.MoveTime),
-				new XElement(nameof(PebbleslideParser.WaitTime), this.WaitTime)
+				new XElement(
+					nameof(PebbleslideJmcManager.EnhancementSkills),
+					this.EnhancementSkills
+						.Select(enhancementSkill =>
+							new XElement(
+								nameof(EnhancementSkill),
+								new XAttribute(nameof(EnhancementSkill.EnhancementSkillName), enhancementSkill.EnhancementSkillName),
+								new XAttribute(nameof(EnhancementSkill.TargetSelf), enhancementSkill.TargetSelf)
+							)
+						)
+				),
+				new XElement(nameof(PebbleslideJmcManager.CharacterName), this.CharacterName),
+				new XElement(nameof(PebbleslideJmcManager.MoveTime), this.MoveTime),
+				new XElement(nameof(PebbleslideJmcManager.WaitTime), this.WaitTime)
 				);
 		}
 
@@ -146,7 +162,7 @@
 			if (string.IsNullOrWhiteSpace(incomingLine)) {
 				return;
 			}
-			
+
 			switch (incomingLine.Trim()) {
 
 				#region Navigation
@@ -200,6 +216,7 @@
 					_moveTimerEnabled = false;
 					this.JmcObject.KillTimer((int)PebbleslideTimer.MoveTimer);
 					//_waitTimerEnabled = true;
+					this.Log(@"Set from line parser", @"green");
 					this.JmcObject.SetTimer((int)PebbleslideTimer.WaitTimer, this.WaitTime);
 					this.JmcObject.Navigate(Direction.North, Direction.East, Direction.East, Direction.East, Direction.South, Direction.South, Direction.West, Direction.West);
 					this.JmcObject.Send(@"open brokenhatch");
@@ -275,11 +292,12 @@
 						_target = this.CharacterName;
 						this.JmcObject.Send(@"examine");
 						_moveTimerEnabled = true;
+						this.Log(@"Set from line parser", @"green");
 						this.JmcObject.SetTimer((int)PebbleslideTimer.MoveTimer, this.MoveTime);
 						break;
 					}
 					return;
-				#endregion
+					#endregion
 
 			}
 			this.Log(incomingLine, @"normal");
@@ -306,6 +324,7 @@
 					break;
 				// If the WaitTimer was called...
 				case PebbleslideTimer.WaitTimer:
+					this.Log(@"Set from OnTimer", @"green");
 					// ...kill the wait timer, and start moving.
 					this.JmcObject.KillTimer((int)PebbleslideTimer.WaitTimer);
 					this.JmcObject.SetTimer((int)PebbleslideTimer.MoveTimer, this.MoveTime);
@@ -337,9 +356,11 @@
 		/// Enables the parsing of lines and enables the <seealso cref="PebbleslideTimer.MoveTimer"/>.
 		/// </summary>
 		protected override void OnEnable() {
+			base.OnEnable();
 			try {
 				// Set the MoveTimer to the specified duration.
 				//_waitTimerEnabled = false;
+				this.Log(@"Set from OnEnable", @"green");
 				_moveTimerEnabled = true;
 				this.JmcObject.KillTimer((int)PebbleslideTimer.WaitTimer);
 				this.JmcObject.SetTimer((int)PebbleslideTimer.MoveTimer, this.MoveTime);
