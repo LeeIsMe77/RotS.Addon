@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/RotS.Addon/css/main.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<title>Return of the Shadow JMC Addon</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
 			<button type="button" class="btn btn-secondary ToolbarButton" data-link="mailto:leeisme@gmail.com">Email</button>
 		</div>
 		<br />
-		<div>			
+		<div>
 			<p>
 				Hello. I'm Lee Gurley and this is my add-on repository for COM DLL modules intended to be consumed by the Jaba Mud Client (JMC) for use with the Multi-User Dimension (MUD) text-based game Return of the Shadow.
 			</p>
@@ -29,11 +29,9 @@
 </html>
 <script type="text/javascript">
 	$(document).ready(() => {
-		$('body').on('click', 'button.ToolbarButton', () => {
+		$('body').on('click', 'button.ToolbarButton', function () {
 			var $button = $(this);
-			console.log($button);
 			var link = $button.data('link');
-			console.log(link);
 			var facebookWindow = window.open(link, '_blank');
 			if (facebookWindow) {
 				facebookWindow.focus();
