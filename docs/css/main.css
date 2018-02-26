@@ -13,3 +13,9 @@ body a:hover {
     color: #9454DB;
     font-kerning: auto;
 }
+
+div.Header {
+	background-color: black;
+	font-size: 16px;
+	color: white;
+}
