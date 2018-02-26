@@ -6,6 +6,7 @@
 	<script type="text/javascript">
 		$(document).ready(() => {
 			$('body').on('click', '.Toolbar a', function () {
+				event.preventDefault();
 				var $button = $(this);
 				var link = $button.data('link');
 				if ($button.hasClass('EmailButton')) {
@@ -16,6 +17,7 @@
 			});
 
 			$('body').on('click', 'a.AjaxLink', function () {
+				event.preventDefault();
 				var $anchor = $(this);
 				var link = $anchor.data('link');
 				NavigateToPage(link);

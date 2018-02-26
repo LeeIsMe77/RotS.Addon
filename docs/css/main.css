@@ -13,6 +13,11 @@ p {
 	text-indent: 50px;
 }
 
+a.ImageButton img {
+	height: 28px !important;
+	width: 28px !important;
+}
+
 div.Header {
 	background-color: #3D3D3D;
 	font-size: 20px;
@@ -26,7 +31,7 @@ div.Toolbar {
 	text-align: center
 }
 
-	div.Toolbar a {
+	div.Toolbar a.ImageButton {
 		float: left;
 		text-align: center;
 		padding: 12px 12px;
@@ -36,16 +41,11 @@ div.Toolbar {
 		border: solid;
 	}
 
-		div.Toolbar a:hover {
+		div.Toolbar a.ImageButton:hover {
 			border: 2px solid;
 			border-color: #8117FF;
 			text-decoration: none;
 		}
-
-a.ImageButton img {
-	height: 28px !important;
-	width: 28px !important;
-}
 
 a.AjaxLink {
 	text-decoration: none !important;
