@@ -1,7 +1,7 @@
 body {
-    background-color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: #552EFD;
+	background-color: #EAEAEA;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: #6D00FF;
 }
 
 body a {
@@ -10,12 +10,13 @@ body a {
 
 body a:hover {
     font-weight: bold;
-    color: #9454DB;
     font-kerning: auto;
+	font-style: normal;
 }
 
 div.Header {
-	background-color: black;
-	font-size: 16px;
-	color: white;
+	background-color: #302C36;
+	font-size: 20px;
+	color: #6D00FF;
+	padding: 5px;
 }
