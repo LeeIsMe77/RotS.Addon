@@ -8,6 +8,10 @@ body a {
     font-style: italic;
 }
 
+p {
+	text-indent: each-line;
+}
+
 body a:hover {
     font-weight: bold;
     font-kerning: auto;
