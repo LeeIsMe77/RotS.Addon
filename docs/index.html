@@ -3,6 +3,32 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="/RotS.Addon/css/main.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(() => {
+			$('body').on('click', 'button.ToolbarButton', function () {
+				var $button = $(this);
+				var link = $button.data('link');
+				if ($button.hasClass('EmailButton')) {
+					window.top.location = 'mailto:' + link + '?subject=RotS.Addon';
+					return;
+				}
+				NavigateToPage(link);
+			});
+
+			$('body').on('click', 'a.AjaxLink', function () {
+				var $anchor = $(this);
+				var link = $anchor.data('link');
+				NavigateToPage(link);
+			});
+
+			function NavigateToPage(link) {
+				var targetWindow = window.open(link, '_blank')
+				if (targetWindow) {
+					targetWindow.focus();
+				}
+			}
+		})
+	</script>
 	<title>Return of the Shadow JMC Addon</title>
 </head>
 <body>
@@ -13,44 +39,40 @@
 		<br />
 		<div class="Toolbar">
 			<a href="#" class="ImageButton EmailButton" data-link="https://github.com/LeeIsMe77/RotS.Addon">
-				<img src="/RotS.Addon/Content/code-icon.png" title="Check out my code."/>
+				<img src="/RotS.Addon/Content/code-icon.png" title="Check out my code." />
 			</a>
 			<a href="#" class="ImageButton LinkButton" data-link="https://www.facebook.com/lee.gurley1">
-				<img src="/RotS.Addon/Content/facebook-icon.png" title="Visit me on Facebook."/>
+				<img src="/RotS.Addon/Content/facebook-icon.png" title="Visit me on Facebook." />
 			</a>
 			<a href="#" class="ImageButton LinkButton" data-link="https://www.facebook.com/groups/1833271910274302/">
-				<img src="/RotS.Addon/Content/group-icon.png" title="Visit the RotS Facebook group."/>
+				<img src="/RotS.Addon/Content/group-icon.png" title="Visit the RotS Facebook group." />
 			</a>
 			<a href="#" class="ImageButton LinkButton" data-link="leeisme@gmail.com">
-				<img src="/RotS.Addon/Content/email-icon.png" title="Send me an email."/>
+				<img src="/RotS.Addon/Content/email-icon.png" title="Send me an email." />
 			</a>
 		</div>
 		<div>
 			<p>
-				Hello. I'm Lee Gurley and this is my add-on repository for COM DLL modules intended to be consumed by the Jaba Mud Client (JMC) for use with the Multi-User Dimension (MUD) text-based game Return of the Shadow.
+				Hello. I'm Lee Gurley and this is my add-on repository for COM DLL modules intended to be consumed by the Jaba Mud Client (JMC) for use with the Multi-User Dimension (MUD) text-based game
+				<strong>
+					<a href="#" class="AjaxLink" data-link="https://www.facebook.com/groups/1833271910274302/">
+						Return of the Shadow
+					</a>
+				</strong>.
+				These addons are written in C# and are designed to introduce quality of life changes to the game by automating simple tasks.  Each module is designed to contain custom settings to make them nearly 100% user customizable.
 			</p>
 			<p>
-				I'll be updating this page incrementally to try and keep you up to date with any chances as they occur with this module, and as I get used to using GitHub Pages.  Stay tuned for more updates!
+				This repository began with my realization that after writing 1200 lines of JScript, I can actually load up ActiveX COM components into JMC Mud client.
+				At this point, it was time for me to start researching COM and determine how I could create a well-structured project that made the importing of all the JScript code feasible.
+				Once I got the core library complete, creating a few sample modules hardly took any time at all.
+			</p>
+			<p>
+				Now that I've gotten the basics out of the way, I'm incredibly excited to continue porting the JScript code into C# modules while adding some extra functionality that was
+				just not at all feasible using pure JScript.  I'll be updating this page incrementally to try and keep you up to date with any changes as they occur with this project,
+				and as I get used to using GitHub Pages.  If anyone has any requests for features they would love to see implemented, I'd absolutely love to hear them.
+				Stay tuned for more updates!
 			</p>
 		</div>
 	</div>
 </body>
 </html>
-<script type="text/javascript">
-	$(document).ready(() => {
-		$('body').on('click', 'button.ToolbarButton', function () {
-			var $button = $(this);
-			var link = $button.data('link');
-
-			if ($button.hasClass('EmailButton')) {
-				window.top.location = 'mailto:' + link + '?subject=RotS.Addon';
-				return;
-			}
-
-			var targetWindow = window.open(link, '_blank')
-			if (targetWindow) {
-				targetWindow.focus();
-			}
-		});
-	})
-</script>

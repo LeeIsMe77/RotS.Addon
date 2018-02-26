@@ -23,6 +23,7 @@ div.Header {
 div.Toolbar {
 	width: 100%;
 	overflow: auto;
+	text-align: center
 }
 
 	div.Toolbar a {
@@ -42,6 +43,15 @@ div.Toolbar {
 		}
 
 a.ImageButton img {
-	height: 20px !important;
-	width: 20px !important;
+	height: 28px !important;
+	width: 28px !important;
+}
+
+a.AjaxLink {
+	text-decoration: none;
+	color: #8117FF;
+}
+
+a.AjaxLink:hover {
+	font-style: italic;
 }
