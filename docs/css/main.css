@@ -47,11 +47,11 @@ a.ImageButton img {
 	width: 28px !important;
 }
 
-a {
+a.AjaxLink {
 	text-decoration: none !important;
 	color: #8117FF !important;
 }
 
-	a:hover {
+	a.AjaxLink:hover {
 		font-style: italic !important;
 	}
