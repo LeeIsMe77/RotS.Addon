@@ -1,0 +1,15 @@
+body {
+    background-color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #552EFD;
+}
+
+body a {
+    font-style: italic;
+}
+
+body a:hover {
+    font-weight: bold;
+    color: #9454DB;
+    font-kerning: auto;
+}
