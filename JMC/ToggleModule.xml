@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ToggleModule Enabled="false" VerboseLoggingEnabled="true" VerboseLoggingOutputWindow="9">
+  <DrinkToggle Enabled="false" />
+  <FoodToggle Enabled="false" FoodContainer="all" FoodSource="waybread" InContainer="true" Repetitions="1" />
+</ToggleModule>

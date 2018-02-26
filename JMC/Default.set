@@ -1,8 +1,8 @@
 #message action OFF
 #message variable OFF
 #message uses OFF
-#multiaction ON
-#multihighlight ON
+#multiaction on
+#multihighlight on
 #presub on
 #echo off
 #ignore off
@@ -12,8 +12,19 @@
 #colon leave
 #comment #
 #race format %0
+#proxy {disable}
+#secure {disable}
+#codepage {iso-8859-1}
+#telnet {debug} {off}
+#oob {GMCP} {disable}
+#oob {MSDP} {disable}
+#oob {MSSP} {disable}
+#broadcast {filterip} {on}
+#broadcast {filterport} {on}
+#broadcast {port} {8136}
+#broadcast {disable}
+#promptend {disable}
+#hot {F1} {#connect rotsmud.dyndns.org 3791} {default}
+#use {common.scr}
 #group local default
 #ticksize 30
-#tickoff
-
-#hot {f1}{#connect rotsmud.dyndns.org 3791}

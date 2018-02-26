@@ -1,7 +1,7 @@
-var CONFIGURATION_LOCATION_PEBBLESLIDE = "C:\\Users\\lGurley\\Source\\Repos\\RotS.LineParser\\JMC\\PebbleslideJmcManager.xml";
-var CONFIGURATION_LOCATION_TOGGLE = "C:\\Users\\lGurley\\Source\\Repos\\RotS.LineParser\\JMC\\ToggleJmcManager.xml";
-var pebbleslideParser = new ActiveXObject("RotS.LineParser.PebbleslideJmcManager");
-pebbleslideParser.Initialize(jmc, CONFIGURATION_LOCATION_PEBBLESLIDE);
+var CONFIGURATION_LOCATION_PEBBLESLIDE = "C:\\Users\\lGurley\\Source\\Repos\\RotS.Addon\\JMC\\PebbleslideBotModule.xml";
+var pebbleslideModule = new ActiveXObject("RotS.Addon.PebbleslideBotModule");
+pebbleslideModule.Initialize(jmc, CONFIGURATION_LOCATION_PEBBLESLIDE);
 
-var toggleParser = new ActiveXObject("RotS.LineParser.ToggleJmcManager");
-toggleParser.Initialize(jmc, CONFIGURATION_LOCATION_TOGGLE);
+var CONFIGURATION_LOCATION_TOGGLE = "C:\\Users\\lGurley\\Source\\Repos\\RotS.Addon\\JMC\\ToggleModule.xml";
+var toggleModule = new ActiveXObject("RotS.Addon.ToggleModule");
+toggleModule.Initialize(jmc, CONFIGURATION_LOCATION_TOGGLE);

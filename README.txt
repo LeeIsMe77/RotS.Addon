@@ -5,7 +5,7 @@ Initialize the parser with the JMC object present in these script files, and set
 // Code //
 
 var CONFIGURATION_LOCATION = "C:\\Temp\\Pebbleslide.xml";
-var pebbleslideParser = new ActiveXObject("RotS.LineParser.PebbleslideParser");
+var pebbleslideParser = new ActiveXObject("RotS.Addon.PebbleslideParser");
 pebbleslideParser.Initialize(jmc, CONFIGURATION_LOCATION); 
 
 // End Code //
