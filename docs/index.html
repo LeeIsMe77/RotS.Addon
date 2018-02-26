@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/RotS.Addon/css/main.css" />
-	<script src="jquery-3.3.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 	<title>Return of the Shadow JMC Addon</title>
 </head>
 <body>
@@ -10,29 +12,25 @@
 		<div class="Header">
 			Return of the Shadow Addon Module
 		</div>
+		<div class="btn-toolbar">
+			<button type="button" class="btn btn-secondary ToolbarButton" data-link="https://github.com/LeeIsMe77/RotS.Addon">Code</button>
+			<button type="button" class="btn btn-secondary ToolbarButton" data-link="https://www.facebook.com/lee.gurley1">Facebook</button>
+			<button type="button" class="btn btn-secondary ToolbarButton" data-link="https://www.facebook.com/groups/1833271910274302/">RotS Group</button>
+			<button type="button" class="btn btn-secondary ToolbarButton" data-link="mailto:leeisme@gmail.com">Email</button>
+		</div>
 		<div>			
 			<p>
-				Hello. I'm
-				<a href="#" class="FacebookLink" title="Check out my facebook!" data-facebooklink="https://www.facebook.com/lee.gurley1">
-					Lee Gurley
-				</a> 
-				and this is my add-on repository for COM DLL modules intended to be consumed by the Jaba Mud Client (JMC) for use with the Multi-User Dimension (MUD) text-based game Return of the Shadow.
+				Hello. I'm Lee Gurley and this is my add-on repository for COM DLL modules intended to be consumed by the Jaba Mud Client (JMC) for use with the Multi-User Dimension (MUD) text-based game Return of the Shadow.
 			</p>
 		</div>
 	</div>
-	<footer>
-		<ul>
-			<li><a href="mailto:leeisme@gmail.com" title="Shoot me an email.">Contact</a></li>
-			<li><a href="https://github.com/LeeIsMe77/RotS.Addon" title="View my code">Code</a></li>
-		</ul>
-	</footer>
 </body>
 </html>
 <script type="text/javascript">
 	$(document).ready(() => {
-		$(body).on('click', 'FacebookLink', () => {
+		$(body).on('click', 'button.ToolbarButton', () => {
 			var $anchor = $(this);
-			var facebookWindow = window.open($anchor.data('facebooklink', '_blank'));
+			var facebookWindow = window.open($anchor.data('link', '_blank'));
 			if (facebookWindow) {
 				facebookWindow.focus();
 			}
