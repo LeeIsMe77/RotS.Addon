@@ -5,7 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(() => {
-			$('body').on('click', 'button.ToolbarButton', function () {
+			$('body').on('click', '.Toolbar a', function () {
 				var $button = $(this);
 				var link = $button.data('link');
 				if ($button.hasClass('EmailButton')) {
@@ -38,7 +38,7 @@
 		</div>
 		<br />
 		<div class="Toolbar">
-			<a href="#" class="ImageButton EmailButton" data-link="https://github.com/LeeIsMe77/RotS.Addon">
+			<a href="#" class="ImageButton LinkButton" data-link="https://github.com/LeeIsMe77/RotS.Addon">
 				<img src="/RotS.Addon/Content/code-icon.png" title="Check out my code." />
 			</a>
 			<a href="#" class="ImageButton LinkButton" data-link="https://www.facebook.com/lee.gurley1">
@@ -47,7 +47,7 @@
 			<a href="#" class="ImageButton LinkButton" data-link="https://www.facebook.com/groups/1833271910274302/">
 				<img src="/RotS.Addon/Content/group-icon.png" title="Visit the RotS Facebook group." />
 			</a>
-			<a href="#" class="ImageButton LinkButton" data-link="leeisme@gmail.com">
+			<a href="#" class="ImageButton EmailButton" data-link="leeisme@gmail.com">
 				<img src="/RotS.Addon/Content/email-icon.png" title="Send me an email." />
 			</a>
 		</div>
