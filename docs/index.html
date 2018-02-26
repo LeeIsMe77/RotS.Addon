@@ -28,7 +28,7 @@
 </html>
 <script type="text/javascript">
 	$(document).ready(() => {
-		$(body).on('click', 'button.ToolbarButton', () => {
+		$('body').on('click', 'button.ToolbarButton', () => {
 			var $anchor = $(this);
 			var facebookWindow = window.open($anchor.data('link', '_blank'));
 			if (facebookWindow) {
